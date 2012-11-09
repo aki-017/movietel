@@ -13,7 +13,7 @@ server : server.o
 movietel : movietel.o
 	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
 .c.o:
-	$(CC) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 clean:
 	-rm server moviecat *.o
