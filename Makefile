@@ -1,15 +1,17 @@
 CC	= gcc
-CFLAGS	= -O
+CFLAGS	= -W -Wall -O
 LDFLAGS	=
-INCLUDES = 
+INCLUDES =
 LIBS	= -lncurses -lavutil -lavformat -lavcodec -lswscale -lavfilter
 TARGET	= all
 
-all : moviecat server
+all : moviecat server movietel
 moviecat: moviecat.o
-	$(CC) $(LDFLAGS) -o $@ moviecat.o $(LIBS)
-server: server.o
-	$(CC) -o server server.o 
+	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
+server : server.o
+	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
+movietel : movietel.o
+	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
 .c.o:
 	$(CC) -c $<
 
