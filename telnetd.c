@@ -38,21 +38,27 @@ int main(void)
 
     client_sockfd = accept(server_sockfd ,
                            (struct sockaddr *)&client_address , &client_len);
+    if(client_sockfd == -1){
+      perror("accept: ");
+      exit(EXIT_FAILURE);
+    }
+
+    printf("accept");
     in_pipe = popen("./moviecat movie.mp4", "r");
     if(in_pipe != NULL){
-      readed_num = fread(buffer,sizeof(char),BUFSIZE,in_pipe);
+      readed_num = fread(buffer,sizeof(char)*BUFSIZE,BUFSIZE,in_pipe);
+      printf("%s", buffer);
       while(readed_num > 0){
-        write(client_sockfd,&buffer,readed_num);
-        readed_num = fread(buffer,sizeof(char),BUFSIZE,in_pipe);
+        if(write(client_sockfd,&buffer,readed_num) == -1){
+          perror("write");
+          exit(EXIT_FAILURE);
+        }
+        readed_num = fread(buffer,sizeof(char)*BUFSIZE,BUFSIZE,in_pipe);
       }
       pclose(in_pipe);
-      close(client_sockfd);
+    }else{
+      perror("in_pipe");
     }
     close(client_sockfd);
-
-    //while(read(client_sockfd,&ch,1) != -1 && ch != 'q'){
-    //write(client_sockfd, "> ", 2);
-    //write(client_sockfd,&ch,1);
-    //}
   }
 }
