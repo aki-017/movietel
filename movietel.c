@@ -29,7 +29,7 @@ int main(int argc, char** argv){
   int yes = 1;
 
   struct sockaddr_in client;
-  int client_len = sizeof(client);
+  socklen_t client_len = sizeof(client);
   pid_t pid;
   FILE* movie_pipe;
   size_t read_size;
