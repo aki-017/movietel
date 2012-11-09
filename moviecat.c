@@ -141,7 +141,6 @@ static void display_picref(AVFilterBufferRef *picref, AVRational time_base)
         last_pts = picref->pts;
     }
 
-    char *str;
     /* Trivial ASCII grayscale display. */
     p0 = picref->data[0];
     for (y = 0; y < picref->video->h; y++) {
@@ -281,5 +280,6 @@ end:
 }
 void sig_handler(int SIG)
 {
+    fprintf(stderr, "Got SIG %d\n", SIG);
     repeat_flag = 0;
 }
