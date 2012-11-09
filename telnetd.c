@@ -37,16 +37,16 @@ int main(void)
     printf("server waiting\n");
 
     client_sockfd = accept(server_sockfd ,
-                    (struct sockaddr *)&client_address , &client_len);
-  in_pipe = popen("./moviecat movie.mp4", "r");
+                           (struct sockaddr *)&client_address , &client_len);
+    in_pipe = popen("./moviecat movie.mp4", "r");
     if(in_pipe != NULL){
+      readed_num = fread(buffer,sizeof(char),BUFSIZE,in_pipe);
+      while(readed_num > 0){
+        write(client_sockfd,&buffer,readed_num);
         readed_num = fread(buffer,sizeof(char),BUFSIZE,in_pipe);
-        while(readed_num > 0){
-            write(client_sockfd,&buffer,readed_num);
-            readed_num = fread(buffer,sizeof(char),BUFSIZE,in_pipe);
-        }
-        pclose(in_pipe);
-        close(client_sockfd);
+      }
+      pclose(in_pipe);
+      close(client_sockfd);
     }
     close(client_sockfd);
 
