@@ -5,10 +5,8 @@ INCLUDES =
 LIBS	= -lncurses -lavutil -lavformat -lavcodec -lswscale -lavfilter
 TARGET	= all
 
-all : moviecat server movietel
+all : moviecat movietel
 moviecat: moviecat.o
-	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
-server : server.o
 	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
 movietel : movietel.o
 	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $^ $(LIBS)
@@ -16,4 +14,4 @@ movietel : movietel.o
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	-rm server moviecat *.o
+	-rm movietel moviecat *.o
