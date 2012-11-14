@@ -1,0 +1,6 @@
+//this file is list.txt
+//=====================
+help
+list
+exit
+//EOF
