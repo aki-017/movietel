@@ -14,6 +14,7 @@
 
 void execute(char *s);
 void cat(char *s);
+
 int check_file_exist(char* target){
   struct stat sb;
   if(stat(target, &sb) == -1){
@@ -38,9 +39,9 @@ int main(int argc, char** argv){
   size_t read_size;
   size_t send_size;
 
-  char read_buffer[READ_BUFFER_SIZE] = {'\0'};
-  char shell_buffer[READ_BUFFER_SIZE] = {'\0'};
-  char socket_read_buffer[READ_BUFFER_SIZE] = {'\0'};
+  char read_buffer[READ_BUFFER_SIZE] = "";
+  char shell_buffer[READ_BUFFER_SIZE] = "";
+  char socket_read_buffer[READ_BUFFER_SIZE] = "";
 
   // argument check
   if(argc < 2){
