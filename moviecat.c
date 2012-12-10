@@ -72,7 +72,7 @@ static int init_filters(const char *filters_descr)
     AVFilter *buffersink = avfilter_get_by_name("ffbuffersink");
     AVFilterInOut *outputs = avfilter_inout_alloc();
     AVFilterInOut *inputs  = avfilter_inout_alloc();
-    enum PixelFormat pix_fmts[] = { PIX_FMT_RGBA, PIX_FMT_NONE };
+    enum PixelFormat pix_fmts[] = { PIX_FMT_BGRA, PIX_FMT_NONE };
     AVBufferSinkParams *buffersink_params;
 
     filter_graph = avfilter_graph_alloc();
@@ -195,8 +195,8 @@ int main(int argc, char **argv)
 
     char filter_descr[10000];
     int w, h;
-    w = COLS;
-    h = LINES;
+    w = 80;//COLS;
+    h = 25;//LINES;
     bak = malloc(sizeof (int) * LINES*COLS+1);
         sprintf(filter_descr, "scale=%d:%d", w, h);
 
