@@ -81,7 +81,7 @@ static int init_filters(const char *filters_descr)
     snprintf(args, sizeof(args),
             "video_size=%dx%d:pix_fmt=%d:time_base=%d/%d:pixel_aspect=%d/%d",
             dec_ctx->width, dec_ctx->height, dec_ctx->pix_fmt,
-            dec_ctx->time_base.num, dec_ctx->time_base.den,
+            fmt_ctx->streams[video_stream_index]->time_base.num, fmt_ctx->streams[video_stream_index]->time_base.den,
             dec_ctx->sample_aspect_ratio.num, dec_ctx->sample_aspect_ratio.den);
 
     ret = avfilter_graph_create_filter(&buffersrc_ctx, buffersrc, "in",
@@ -134,8 +134,8 @@ static void display_picref(AVFilterBufferRef *picref, AVRational time_base)
              * usleep is in microseconds, just like AV_TIME_BASE. */
             delay = av_rescale_q(picref->pts - last_pts,
                                  time_base, AV_TIME_BASE_Q);
-//            if (delay > 0 && delay < 1000000)
-//                usleep(delay*2);
+            if (delay > 0 && delay < 1000000)
+                usleep(delay);
             
         }
         last_pts = picref->pts;
